@@ -12,6 +12,7 @@ public class CoinGrabNGo extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture background;
 	Texture[] character;
+	int characterState = 0;
 
 	@Override
 	public void create () {
@@ -28,7 +29,12 @@ public class CoinGrabNGo extends ApplicationAdapter {
 	public void render () {
 		batch.begin();
 		batch.draw(background,0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		batch.draw(character[0],Gdx.graphics.getWidth()/2- character[0].getWidth()/2, Gdx.graphics.getHeight()/2);
+		if (characterState < 3){
+			characterState++;
+		}else{
+			characterState = 0;
+		}
+		batch.draw(character[characterState],Gdx.graphics.getWidth()/2- character[characterState].getWidth()/2, Gdx.graphics.getHeight()/2);
 		batch.end();
 
 	}
