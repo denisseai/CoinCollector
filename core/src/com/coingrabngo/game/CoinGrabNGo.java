@@ -13,6 +13,10 @@ public class CoinGrabNGo extends ApplicationAdapter {
 	Texture background;
 	Texture[] character;
 	int characterState = 0;
+	int pause = 0;
+	float gravity = 0.2f;
+	float velocity = 0;
+	int characterY = 0;
 
 	@Override
 	public void create () {
@@ -23,20 +27,36 @@ public class CoinGrabNGo extends ApplicationAdapter {
 		character[1] = new Texture("frame-2.png");
 		character[2] = new Texture("frame-3.png");
 		character[3] = new Texture("frame-4.png");
+		characterY =  Gdx.graphics.getHeight() / 2;
 	}
 
 	@Override
 	public void render () {
 		batch.begin();
 		batch.draw(background,0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		if (characterState < 3){
-			characterState++;
-		}else{
-			characterState = 0;
-		}
-		batch.draw(character[characterState],Gdx.graphics.getWidth()/2- character[characterState].getWidth()/2, Gdx.graphics.getHeight()/2);
-		batch.end();
 
+		if (Gdx.input.justTouched()){
+			velocity = -10;
+		}
+		if (pause < 8){
+			pause++;
+		}else {
+			pause = 0;
+			if (characterState < 3) {
+				characterState++;
+			} else {
+				characterState = 0;
+			}
+		}
+		velocity += gravity;
+		characterY -= velocity;
+
+		if (characterY <= 0){
+			characterY = 0;
+		}
+
+		batch.draw(character[characterState], Gdx.graphics.getWidth() / 2 - character[characterState].getWidth() / 2, characterY);
+		batch.end();
 	}
 	
 	@Override
