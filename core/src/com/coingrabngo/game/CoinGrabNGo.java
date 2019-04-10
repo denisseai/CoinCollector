@@ -39,6 +39,7 @@ public class CoinGrabNGo extends ApplicationAdapter {
 
 	Texture background;
 	Texture[] character;
+	Texture characterDizzy;
 	Texture coin;
 	Texture bomb;
 
@@ -56,6 +57,7 @@ public class CoinGrabNGo extends ApplicationAdapter {
 		character[3] = new Texture("frame-4.png");
 		characterY =  Gdx.graphics.getHeight() / 2;
 		characterX = Gdx.graphics.getWidth() / 2 - character[characterState].getWidth() / 2;
+		characterDizzy = new Texture("dizzy-1.png");
 
 		coin = new Texture("coin.png");
 		bomb = new Texture("bomb.png");
@@ -149,7 +151,11 @@ public class CoinGrabNGo extends ApplicationAdapter {
 				bombCount = 0;
 			}
 		}
-		batch.draw(character[characterState], characterX, characterY);
+		if (gameState == 2){
+			batch.draw(characterDizzy, characterX, characterY);
+		}else{
+			batch.draw(character[characterState], characterX, characterY);
+		}
 		rectCharacter = new Rectangle(characterX, characterY, character[characterState].getWidth(), character[characterState].getHeight());
 		for (int i = 0; i < coinRectangle.size();i++){
 			if (Intersector.overlaps(rectCharacter, coinRectangle.get(i))){
