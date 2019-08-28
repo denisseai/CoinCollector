@@ -4,7 +4,9 @@
 
 * GDX 
 * Sprites
-* Jumping *Coins *Bombs 
+* Jumping 
+* Coins 
+* Bombs 
 * Game State
 
 ### Screen-shot of character with background
